@@ -6,3 +6,29 @@
 
 
 [마크다운 사용법](https://gist.github.com/ihoneymon/652be052a0727ad59601)
+
+
+### 추가사항 계획
+1. 2020/07/04 ~ 2020/07/12 JSP,Servlet 강의 듣기
+#### - 46강 까지 필수!
+#### - 각자 그날 개발하거나 공부한거 Github나 Slack에 올리기
+[JSP 강의 뉴렉쳐 유튜브](https://www.youtube.com/watch?v=drCj2k50j_k&list=PLq8wAnVUcTFVOtENMsujSgtv2TOsMy8zd)
+
+2. 2020/07/13 ~ 2020/07/19 : 인프런 Spring 튜토리얼 강의 듣고 개발환경 준비 및 복습(JSP, Servlet, Spring)
+#### - 각자 그날 개발하거나 공부한거 Github나 Slack에 올리기
+
+3. 2020/07/20 ~ 2020/08/21 : 기획했던 프로젝트 진행
+#### - 2020/07/31 ~ 2020/08/01 사이에 프로젝트 중간 점검
+## 간단한 게시판 웹 사이트
+'''
+- 회원가입
+- 회원정보를 위한 Mysql 혹은 Oracle DB 사용
+- 게시글 삽입
+- 게시글 삭제
+- 게시글 조회
+- 게시글 수정
+- 댓글, 대댓글 기능
+- 페이징 처리 (javascript, ajax 사용)
+- 능력되는대로 메일서버 (Java SMTP 사용)
+- 참고 사이트 ( 우아한 형제 모티브로 제작 디자인 참고 - http://woowabros.github.io/category/experience/ )
+'''
