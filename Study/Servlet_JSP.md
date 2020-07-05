@@ -32,6 +32,8 @@ Servlet -> __Serv__ er Application __Let__  서버의 조각?
 ### Context 사이트 추가
 http//IP(or hostName):Port/context/리소스들
 
-'''
+<pre>
+<code>
 <Context path="it" docBase = "C:\tools\apache-tomcat-9.0.36\webapps\ITWeb\it" privileged="true" />
-'''
+</code>
+</pre>
