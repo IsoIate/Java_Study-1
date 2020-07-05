@@ -24,4 +24,14 @@ Servlet -> __Serv__ er Application __Let__  서버의 조각?
 아파치 톰캣 포트 변경 -> 톰캣경로/conf/server.xml 에서 Connector 포트 변경  
 실행 방법 -> 톰캣경로/bin/startup.bat 실행!  
 
-연결 확인 법 -> localhost:본인이 정한 포트 ex)8080
+연결 확인 법 -> localhost:본인이 정한 포트 ex)8080  
+
+
+톰캣은 기본적으로 아무것도 입력하지 않았을 때 index.html을 가르킨다.
+
+### Context 사이트 추가
+http//IP(or hostName):Port/context/리소스들
+
+...
+<Context path="it" docBase = "C:\tools\apache-tomcat-9.0.36\webapps\ITWeb\it" privileged="true" />
+...
