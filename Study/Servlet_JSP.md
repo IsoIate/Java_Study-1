@@ -6,4 +6,22 @@
 3. JSP MVC 
 4. Spring MVC
 
-순서로 공부? 발전
+순서로 공부? 발전  
+
+기존의 네트워크 프로그램은 클라이언트와 서버가 업데이트 될 때마다 소켓을 사용하여 연결을 해서 프로그램을 삭제 후 재설치하는 방법을 사용했었는데 HTTP(웹)을 사용해 웹으로 클라이언트에게 서버가 업데이트된 데이터를 전송할 수 있다.  
+
+웹 어플리케이션 서버 WAS  
+프로그램을 동적으로 실행할 수 있는 WAS 서버가 필요  
+코드, Server App을 실행할 수 있는 환경이 WAS이다.  
+ 
+ 
+실행환경
+Web Server + WAS + Server App  
+
+
+Servlet -> __Serv__ er Application __Let__  서버의 조각?  
+
+아파치 톰캣 포트 변경 -> 톰캣경로/conf/server.xml 에서 Connector 포트 변경  
+실행 방법 -> 톰캣경로/bin/startup.bat 실행!  
+
+연결 확인 법 -> localhost:본인이 정한 포트 ex)8080
