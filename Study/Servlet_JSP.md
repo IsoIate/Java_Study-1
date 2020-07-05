@@ -31,16 +31,10 @@ Servlet -> __Serv__ er Application __Let__  서버의 조각?
 
 ### Context 사이트 추가
 http//IP(or hostName):Port/context/리소스들
-
-<pre>
-<code>
-Server.xml -> Host 안에
-
-Context path="it" docBase = "C:\tools\apache-tomcat-9.0.36\webapps\ITWeb\it" privileged="true"
-
-추가
-</code>
-</pre>
+Server.xml -> Host 안에 추가
+```xml
+<Context path="it" docBase = "C:\tools\apache-tomcat-9.0.36\webapps\ITWeb\it" privileged="true">
+```
 
 
 HttpServlet을 상속받은 객체 service 메서드를 오버라이딩해서 사용 
