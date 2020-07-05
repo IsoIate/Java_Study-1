@@ -34,6 +34,10 @@ http//IP(or hostName):Port/context/리소스들
 
 <pre>
 <code>
-<Context path="it" docBase = "C:\tools\apache-tomcat-9.0.36\webapps\ITWeb\it" privileged="true" />
+Server.xml -> Host 안에
+
+Context path="it" docBase = "C:\tools\apache-tomcat-9.0.36\webapps\ITWeb\it" privileged="true"
+
+추가
 </code>
 </pre>
