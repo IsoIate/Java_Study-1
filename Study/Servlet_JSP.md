@@ -38,7 +38,7 @@ Server.xml -> Host 안에 추가
 
 
 HttpServlet을 상속받은 객체 service 메서드를 오버라이딩해서 사용 
- -> post, get 둘다 응답 가능  (HttpServletRequest, HttpServletResponse 두 객체를 매개변수로 받음)
+ -> post, get 둘다 응답 가능  (HttpServletRequest, HttpServletResponse 두 객체를 매개변수로 받음)  
  doGet이나 doPost 메서드 사용 가능
 
 톰캣 경로의 ROOT안에 있는 WEB-INF 폴더는 절대 사용자가 요청할 수 없고 서버를 위해 사용  
