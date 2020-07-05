@@ -56,8 +56,8 @@ HttpServlet을 상속받은 객체 service 메서드를 오버라이딩해서 �
 서블릿 매핑하는 방법은 WEB-INF에 web.xml에 다음과 같은 코드를 추가해야함  
 
 <pre>
-<code>
-"<servlet>
+<code>xml
+<servlet>
     <servlet-name>na</servlet-name>
     <servlet-class>Nana</servlet-class>
   </servlet>
@@ -65,6 +65,6 @@ HttpServlet을 상속받은 객체 service 메서드를 오버라이딩해서 �
   <servlet-mapping>
     <servlet-name>na</servlet-name>
     <url-pattern>/hello</url-pattern>
-  </servlet-mapping>"
+  </servlet-mapping>
 </code>
 </pre>
