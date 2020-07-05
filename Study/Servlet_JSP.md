@@ -41,3 +41,30 @@ Context path="it" docBase = "C:\tools\apache-tomcat-9.0.36\webapps\ITWeb\it" pri
 추가
 </code>
 </pre>
+
+
+HttpServlet을 상속받은 객체 service 메서드를 오버라이딩해서 사용 
+ -> post, get 둘다 응답 가능  (HttpServletRequest, HttpServletResponse 두 객체를 매개변수로 받음)
+ doGet이나 doPost 메서드 사용 가능
+
+톰캣 경로의 ROOT안에 있는 WEB-INF 폴더는 절대 사용자가 요청할 수 없고 서버를 위해 사용  
+그래서 그 곳에 클래스 파일을 둠  
+
+### 서블릿이 실행되는 시점과 방식
+요청에따라 WAS 서버가 자바 서버 어플리케이션 안에있는 여러가지 코드를 분류해서 실행시킴  
+
+서블릿 매핑하는 방법은 WEB-INF에 web.xml에 다음과 같은 코드를 추가해야함  
+
+<pre>
+<code>
+"<servlet>
+    <servlet-name>na</servlet-name>
+    <servlet-class>Nana</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>na</servlet-name>
+    <url-pattern>/hello</url-pattern>
+  </servlet-mapping>"
+</code>
+</pre>
