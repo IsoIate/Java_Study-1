@@ -60,4 +60,7 @@ HttpServlet을 상속받은 객체 service 메서드를 오버라이딩해서 �
     <url-pattern>/hello</url-pattern>
   </servlet-mapping>
 ```
-### 추후 Java의 Stream과 Writer Reader의 차이점 공부할것 (아마 버퍼차이같은데 자세한게 기억이안난다)
+### 추후 Java의 Stream과 Writer Reader의 차이점 공부할것 (아마 버퍼차이같은데 자세한게 기억이안난다)  
+
+이클립스에서의 첫 웹
+[JSPPrj](https://github.com/eggme/JSPPrj)
