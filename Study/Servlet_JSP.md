@@ -83,8 +83,15 @@ HttpServlet을 상속받은 객체 service 메서드를 오버라이딩해서 �
 그럴 때 한글 깨짐 현상이 발생하기 때문에 보내는 데이터에 따라 인코딩을 바꿔야함  
 
 위의 내용들을 모두 해결하려면 Servlet에 다음과 같은 코드를 입력하면 된다.   
-```
+```java
 (HttpServletResponse obj)response.setChatacterEncoding("UTF-8");
 (HttpServletResponse obj)response.setContentType("text/html;charset=UTF-8");
 ```   
 
+### Client의 요청
+- GET 방식
+ - querystring을 사용하여 주소에 계속 더해짐  
+ ex) http://localhost/hello  
+     http://localhost/hello?cnt=3
+ 
+- POST 방식
