@@ -91,7 +91,8 @@ HttpServlet을 상속받은 객체 service 메서드를 오버라이딩해서 �
 ### Client의 요청
 - GET 방식
  - querystring을 사용하여 주소에 계속 더해짐  
- ex) http://localhost/hello  
-     http://localhost/hello?cnt=3
- 
+``` 
+http://localhost/hello  
+http://localhost/hello?cnt=3
+```   
 - POST 방식
