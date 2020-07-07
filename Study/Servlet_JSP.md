@@ -95,4 +95,10 @@ HttpServlet을 상속받은 객체 service 메서드를 오버라이딩해서 �
 http://localhost/hello  
 http://localhost/hello?cnt=3
 ```   
+넘어오는 get방식의 파라미터를 가져오려면 request객체의 getParameter메서드를 사용하여 가져옴   
+```
+(HttpServletRequest obj)request.getParameter("파라미터 이름");
+```
 - POST 방식
+
+17강 1:53에서 잠들다  
