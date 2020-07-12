@@ -10,7 +10,7 @@
 
 
 ### 추가사항 계획
-1. 2020/07/04 ~ 2020/07/12 JSP,Servlet 강의 듣기
+1. 2020/07/04 ~ 2020/07/19 JSP,Servlet 강의 듣기.......
 #### - 46강 까지 필수!
 #### - 각자 그날 개발하거나 공부한거 Github나 Slack에 올리기
 [JSP 강의 뉴렉쳐 유튜브](https://www.youtube.com/watch?v=drCj2k50j_k&list=PLq8wAnVUcTFVOtENMsujSgtv2TOsMy8zd)
