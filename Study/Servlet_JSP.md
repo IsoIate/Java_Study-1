@@ -90,7 +90,7 @@ HttpServlet을 상속받은 객체 service 메서드를 오버라이딩해서 �
 
 ### Client의 요청
 - GET 방식
- - querystring을 사용하여 주소에 계속 더해짐  
+ - QueryString을 사용하여 주소에 계속 더해짐  
 ``` 
 http://localhost/hello  
 http://localhost/hello?cnt=3
@@ -101,4 +101,34 @@ http://localhost/hello?cnt=3
 ```
 - POST 방식
 
-17강 1:53에서 잠들다  
+__17강 1:53에서 잠들다__  
+
+ 페이지 인코딩 바꾸는법
+ 
+ 이클립스 Window -> Preferences -> 밑에 Web -> html, css, jsp Encoding 변경하면 파일 생성시 자동으로 인코딩 변경됨.  
+ 
+ request Paremeter은 form 태그 input 요소에 name 값을 통해 값을 전달하기 때문에 보내는 데이터에 반드시 name을 써줘야한다.  
+ 
+ #### 한글 입력 문제  
+ Client(UTF-8 : 2byte) -> Server(UTF-8 : 1byte)  
+ 한글깨짐 현상 발생  
+ 해결법  
+ 1. request CharacterEncoding 변경  
+ 2. tomcat servet.xml에 Encoding 추가  
+ 일반적으로 톰캣서버의 설정은 건드리지 않는게 좋음 (여러 서버가 있을 수 있으니)  
+ 
+ #### Servlet Filter
+ 필터 적용법  
+ 1. web.xml에 맵핑
+ ```xml
+ <filter>
+  	<filter-name>필터이름</filter-name>
+  	<filter-class>패키지명.클래스명</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>필터이름</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+ ```
+ 2. 어노테이션 사용
+ 
