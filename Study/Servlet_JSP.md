@@ -101,7 +101,7 @@ http://localhost/hello?cnt=3
 ```
 - POST 방식
 
-__17강 1:53에서 잠들다__  
+__~~17강 1:53에서 잠들다~~__  
 
  페이지 인코딩 바꾸는법
  
@@ -174,4 +174,4 @@ __17강 1:53에서 잠들다__
  ```
  
  21강 학습과제 (add.html)  
- [JSPPrj 학습과제 링크](https://github.com/eggme/JSPPrj)
+ [JSPPrj 학습과제 링크](https://github.com/eggme/JSPPrj/blob/master/src/com/lsj/web/Calcurator.java)
