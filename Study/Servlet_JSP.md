@@ -133,14 +133,28 @@ __17강 1:53에서 잠들다__
  
  필터클래스
  ```java
- // 다음 페이지로 넘기는 권한은 FilterChain
+ public class CharacterEncodingFilter implements Filter {
+
+	@Override
+	public void doFilter(ServletRequest request
+			, ServletResponse response
+			, FilterChain chain)
+			throws IOException, ServletException {
+		// TODO Auto-generated method stub
+		// 다음 페이지로 넘기는 권한은 FilterChain
 		System.out.println("Hello Filter");
 		request.setCharacterEncoding("UTF-8");
 		chain.doFilter(request, response);
 		// 흐름을 넘기는 것 해당 request와 response에 담긴 요청 실행
 		// 말그대로 한번 들렸다가 거르는 것
+	}
+
+}
  ```
  2. 어노테이션 사용
  ```java
  @WebFilter("/*")
  ```
+ 
+ 21강 학습과제 (add.html)  
+ [JSPPrj 학습과제 링크]https://github.com/eggme/JSPPrj
