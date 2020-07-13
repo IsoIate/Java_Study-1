@@ -42,7 +42,7 @@ HttpServlet을 상속받은 객체 service 메서드를 오버라이딩해서 �
  doGet이나 doPost 메서드 사용 가능
 
 톰캣 경로의 ROOT안에 있는 WEB-INF 폴더는 절대 사용자가 요청할 수 없고 서버를 위해 사용  
-그래서 그 곳에 클래스 파일을 둠  
+그래서 ~~그 곳에 클래스 파일을 둠~~ (대충 중요한파일 놓는다는거같음)  
 
 ### 서블릿이 실행되는 시점과 방식
 요청에따라 WAS 서버가 자바 서버 어플리케이션 안에있는 여러가지 코드를 분류해서 실행시킴  
@@ -60,7 +60,10 @@ HttpServlet을 상속받은 객체 service 메서드를 오버라이딩해서 �
     <url-pattern>/hello</url-pattern>
   </servlet-mapping>
 ```
-### 추후 Java의 Stream과 Writer Reader의 차이점 공부할것 (아마 버퍼차이같은데 자세한게 기억이안난다)  
+### 추후 Java의 Stream과 Writer Reader의 차이점 공부할것 ~~(아마 버퍼차이같은데 자세한게 기억이안난다)~~    
+Writer, Reader -> I/O를 문자 단위로 Char 단위로 읽음
+stream -> I/O를 byte단위로 읽음(한글깨짐- 한글 2byte, stream 1byte)  
+
 
 이클립스에서의 첫 웹  
 [JSPPrj](https://github.com/eggme/JSPPrj)
