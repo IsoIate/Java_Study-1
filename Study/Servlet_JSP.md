@@ -1,4 +1,4 @@
-# Servlet/JSP 강의 01 ~ 10
+# Servlet/JSP 강의 01 ~ 21
 자바 -> 자바웹 프로그래밍  
 자바 웹프로그래밍
 1. 서블릿 (HTML 코드 출력하기가 너무 힘듬)
@@ -110,7 +110,7 @@ __17강 1:53에서 잠들다__
  request Paremeter은 form 태그 input 요소에 name 값을 통해 값을 전달하기 때문에 보내는 데이터에 반드시 name을 써줘야한다.  
  
  #### 한글 입력 문제  
- Client(UTF-8 : 2byte) -> Server(UTF-8 : 1byte)  
+ Client(UTF-8 : 2byte) -> Server(ISO-8859-1 : 1byte)  
  한글깨짐 현상 발생  
  해결법  
  1. request CharacterEncoding 변경  
@@ -130,5 +130,17 @@ __17강 1:53에서 잠들다__
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
  ```
- 2. 어노테이션 사용
  
+ 필터클래스
+ ```java
+ // 다음 페이지로 넘기는 권한은 FilterChain
+		System.out.println("Hello Filter");
+		request.setCharacterEncoding("UTF-8");
+		chain.doFilter(request, response);
+		// 흐름을 넘기는 것 해당 request와 response에 담긴 요청 실행
+		// 말그대로 한번 들렸다가 거르는 것
+ ```
+ 2. 어노테이션 사용
+ ```java
+ @WebFilter("/*")
+ ```
