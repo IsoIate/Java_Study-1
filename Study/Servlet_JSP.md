@@ -1,4 +1,4 @@
-# Servlet/JSP 강의 01 ~ 21
+# Servlet/JSP 강의 01 ~ 27
 자바 -> 자바웹 프로그래밍  
 자바 웹프로그래밍
 1. 서블릿 (HTML 코드 출력하기가 너무 힘듬)
@@ -177,4 +177,42 @@ __~~17강 1:53에서 잠들다~~__
  ```
  
  21강 학습과제 (add.html)  
- [JSPPrj 학습과제 링크](https://github.com/eggme/JSPPrj/blob/master/src/com/lsj/web/Calcurator.java)
+ [JSPPrj 학습과제 링크](https://github.com/eggme/JSPPrj/blob/master/src/com/lsj/web/Calcurator.java)  
+ 
+ 
+ request객체에서 여러개의 값을 가져오는 법
+ ```html
+<input type="text" name="value" /> 
+<input type="text" name="value" />
+<input type="text" name="value" />
+<input type="text" name="value" /> ....
+```
+
+일때 value들을 한번에 배열 형태로 받는 법
+```java
+String[] values = request.getParameterValues("value");
+```
+
+웹의 상태 유지를 위한 5가지 방법  
+1. application  
+ - Application 저장소 : 서블릿 컨텍스트 (Servlet Context)  
+ ```java
+ ServletContext application = req.getServletContext();
+ // // ServletContext -> 컬렉션이라고 생각
+ application.getAttribute("키");
+ application.setAttribute("키", "값");
+ 
+ // 페이지 이동
+ response.sendRedirect("경로");
+ ```
+2. session  
+- session은 현재 접속자에 대한 데이터, application은 어플리케이션 전체에서 돌아가는 개념
+```java
+ HttpSession session = req.getSession();
+ session.getAttribute("키");
+ session.setAttribute("키", "값");
+ ```  
+ - 브라우저 별로 다른 세션으로 구분 (크롬, 파이어폭스, 익스플로러...)
+3. cookie  
+4. hidden input (추후에 함)  
+5. querystring (추후에함)  
