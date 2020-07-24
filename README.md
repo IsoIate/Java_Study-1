@@ -13,7 +13,7 @@
 # 1. 2020/07/04 ~ 2020/07/26 JSP,Servlet 강의 듣기.......
 #### - 46강 까지 필수!
 ### - 추가) 50~58강도 듣기
-### - 시험 꼭 합격하길 바랍니다^^;
+### - 합격축하하니까 어서 들으세요!
 #### - 각자 그날 개발하거나 공부한거 Github나 Slack에 올리기
 [JSP 강의 뉴렉쳐 유튜브](https://www.youtube.com/watch?v=drCj2k50j_k&list=PLq8wAnVUcTFVOtENMsujSgtv2TOsMy8zd)
 
