@@ -1,4 +1,4 @@
-# Servlet/JSP 강의 01 ~ 27
+# Servlet/JSP 강의 01 ~ 32
 자바 -> 자바웹 프로그래밍  
 자바 웹프로그래밍
 1. 서블릿 (HTML 코드 출력하기가 너무 힘듬)
@@ -212,7 +212,65 @@ String[] values = request.getParameterValues("value");
  session.getAttribute("키");
  session.setAttribute("키", "값");
  ```  
- - 브라우저 별로 다른 세션으로 구분 (크롬, 파이어폭스, 익스플로러...)
+- 브라우저 별로 다른 세션으로 구분 (크롬, 파이어폭스, 익스플로러...)  
+- WAS에 어플리케이션 공간에 사용자 마다 저장 할 수 있는 세션 공간이 있음  
+- 사용자를 식별하는 아이디를 SID(Session ID)를 사용하여 세션 공간에 데이터를 저장  
+- 처음 실행 시 어플리케이션 공간만 가능, 로그인을 하였을 때 SID를 부여하여 세션을 통하여 데이터를 보관  
+- 쿠키로 세션 아이디를 전송  
+```java
+// 세션관련 메서드
+void setAttribute(String name, Object value)
+// 지정된 이름으로 객체를 설정
+Object getAttribute(String name)
+// 지정한 이름의 객체를 반환
+void invalidate()
+// 세션에 사용되는 객체들을 바로 해제
+void setMaxInativeInterval(int interval)
+// 세션 타임아웃을 정수(초)로 설정
+boolean isNew()
+// 세션이 새로 생성되었는지를 확인 
+Long getCreationTime() // 기본 타임아웃은 30분
+// 세션이 시작된 시간을 반환, 1970년 1월 1일을 시작으로 하는 밀리초
+Long getLastAccessedTime()
+// 마지막 요청 시간, 1970년 1월 1일을 시작을 하는 밀리초
+```
 3. cookie  
+- 클라이언트에 저장하는 저장소  
+- Header 정보와 사용자 데이터를 가지고 있음  
+- 데이터의 유형을 이해해서 용도별로 맞는 처리를 해야함 Application, Session, Cookie...  
+```java
+// 쿠키 저장하기
+Cookie cookie = new Cookie("c", String.valueOf(result));
+response.addCookie(cookie);
+// 쿠키 읽기
+Cookie[] cookies = request.getCookies();
+String _c = "";
+if(cookies != null){
+    for(Cookie cookie : cookies){
+    	if("c".equals(cookie.getName())
+	    _c = cookie.getValue();
+    }
+}
+```
+- cookie를 사용할 때 알아야하는 옵션 -> 서블릿마다 쿠키가 다르니까, URL설정을 한다. 그래야만 쿠키를 효율적으로 사용할 수 있다.  
+- setPath() 메소드를 사용하여 쿠키 path설정  
+- cookie의 maxAge 설정 중요) 쿠키의 가장 큰 장점 -> 브라우저가 닫혀도 내가 원하는 기간을 설정하게 된다면 그 기간내에는 값을 유지 할 수 있음.  
+- 쿠키는 기본적으로 브라우저 메모리에있다가, 외부파일으로 저장됨.  
+```java
+cookie.setPath("/"); 
+// 모든 요청에 쿠키설정
+cookie.setPath("/notice");
+// notice 요청에게만 쿠키설정
+cookie.setMaxAge(1000);
+// miliescound 후 종료 ) 1000초 후 삭제
+// 일반적으로 보기 쉽게 24*60*60 이런식으로 시분초 단위로 함
+```
 4. hidden input (추후에 함)  
 5. querystring (추후에함)  
+#### Application과 Session, Cookie의 차이점  
+```
+- Application에 저장을 한다 -> 전역범위에서 쓰는 값, 생명주기는 WAS와 같음, 존재하는 위치는 서버쪽에 자원을 쓰기 때문에 WAS 서버의 메모리이다. 
+- Session에 저장을 한다 -> 서버 자원을 사용하되, 생명주기는 세션이 시작해서 종료될 때 까지,  저장위치는 WAS 서버의 메모리이다.
+- Cookie에 저장을 한다 -> 웹 브라우저별 지정한 Path 범주에 저장, 브라우저에 전달한 시간부터 만료시간만큼 보관, 웹 브라우저에 저장됨.
+// 보관기간이 길어질 경우 쿠키로 저장하면 됨, 특정 URL에서만 쓰게되면 쿠키의 Path를 사용하여 쿠키를 사용하는게 바람직함.
+```
