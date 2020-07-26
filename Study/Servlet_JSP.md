@@ -284,3 +284,62 @@ response.sendRedirect("이동할 웹 사이트 주소");
 ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn"); // nashorn은 엔진이름임 js엔진도 있음
 engine.eval("5+3"); // Javascript 실행문 반환형 Object
 ```
+
+## 쿠키를 삭제하는 방법  
+```java
+Cookie c = new Cookie("키","값");
+c.setMaxAge(0);
+// 쿠키수명을 0으로 변경
+```
+
+## Get요청과 Post요청에 특화된 함수 service  
+1. service() 메서드에서 Get과 Post를 구분하는 방법  
+```java
+@Override
+protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	// TODO Auto-generated method stub
+	// service 에서 request method를 확인하는 방법
+	if(req.getMethod().equals("GET")) { // 반드시 대문자
+		System.out.println("Get요청이 왔습니다.");
+	}else if(req.getMethod().equals("POST")) {
+		System.out.println("Post요청이 왔습니다.");
+	}
+}
+```
+2. doGet(), doPost() 메서드를 오버라이딩하는 방법  
+```java
+@Override
+protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	// TODO Auto-generated method stub
+	System.out.println("doPost메서드가 호출되었습니다.");
+}
+```
+
+##### service 의 super.service(req, res) 가 실행되면 doGet 혹은 doPost가 실행됌  
+##### 전처리(라우팅) 할 수있게 만들어놓은거 같음  
+##### doGet과 doPost를 실행하는 것이 service 메서드의 super.service(req,res);  
+
+
+## HTML 출력이 많은 결과 페이지, 복잡한 HTML 페이지를 보낼 때 Servlet으로 작성하면 코드가 길어짐 -> 그래서 Jasper(JSP:Java Servlet Page)을 사용  
+- jsp는 톰캣이 index.jsp파일을 ~~~ 톰캣경로/index_jsp.java 파일로 변환  
+
+## JSP의 코드블록 종류  
+```java
+1. 코드블록, 기본 실행
+ ->    <%  
+    int a = 0;
+    int c = 3;
+ %>
+2. 코드블록,출력
+ ->    <%= x+y %>
+3. 선언부(Declaration)
+ -> <%!  
+  public static void add(){
+  	// ....
+  }
+  %>
+4. 지시 블럭, 초기 설정을 위한 Page 지시자
+  -> <%@ page langiage="java" contentType="text/html;charset=UTF-8" @>
+```   
+
+
