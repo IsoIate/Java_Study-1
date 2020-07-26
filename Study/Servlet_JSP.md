@@ -1,4 +1,4 @@
-# Servlet/JSP 강의 01 ~ 36
+# Servlet/JSP 강의 01 ~ 32
 자바 -> 자바웹 프로그래밍  
 자바 웹프로그래밍
 1. 서블릿 (HTML 코드 출력하기가 너무 힘듬)
@@ -94,17 +94,23 @@ stream -> I/O를 byte단위로 읽음(한글깨짐- 한글 2byte, stream 1byte)
 ### Client의 요청
 - GET 방식
  - QueryString을 사용하여 주소에 계속 더해짐  
+ - 추가적인 옵션 설정
+ - 보안 문제 발생 가능성 (아이디, 패스워드 등)
 ``` 
 http://localhost/hello  
-http://localhost/hello?cnt=3
+http://localhost/hello?cnt=3	-> 3
+http://localhost/hello?cnt=	-> ""
+http://localhost/hello?		-> null
+http://localhost/hello		-> null
 ```   
 넘어오는 get방식의 파라미터를 가져오려면 request객체의 getParameter메서드를 사용하여 가져옴   
 ```
 (HttpServletRequest obj)request.getParameter("파라미터 이름");
 ```
 - POST 방식
-
-__~~17강 1:53에서 잠들다~~__  
+ - 넘어오는 요청이 많을 때 두 단계로 나누어서 일을 처리
+ - GET방식과 다르게 주소창에 더해지지 않음
+ - 주소에 더해지는 방식이 아니므로 글자 수 제한이 없음
 
  페이지 인코딩 바꾸는법
  
@@ -117,10 +123,11 @@ __~~17강 1:53에서 잠들다~~__
  한글깨짐 현상 발생  
  해결법  
  1. request CharacterEncoding 변경  
- 2. tomcat servet.xml에 Encoding 추가  
- 일반적으로 톰캣서버의 설정은 건드리지 않는게 좋음 (여러 서버가 있을 수 있으니)  
+ 2. tomcat servet.xml에 Encoding 추가   
+ 일반적으로 톰캣서버의 설정은 건드리지 않는게 좋음 (여러 서버가 있을 수 있으니)   
  
  #### Servlet Filter
+ 서블릿 접근 전 또는 후에 적용되는 조건?
  필터 적용법  
  1. web.xml에 맵핑
  ```xml
@@ -130,7 +137,7 @@ __~~17강 1:53에서 잠들다~~__
   </filter>
   <filter-mapping>
   	<filter-name>필터이름</filter-name>
-  	<url-pattern>/*</url-pattern>
+  	<url-pattern>/*</url-pattern> -> 모든 url 지정
   </filter-mapping>
  ```
  
@@ -274,6 +281,8 @@ cookie.setMaxAge(1000);
 - Cookie에 저장을 한다 -> 웹 브라우저별 지정한 Path 범주에 저장, 브라우저에 전달한 시간부터 만료시간만큼 보관, 웹 브라우저에 저장됨.
 // 보관기간이 길어질 경우 쿠키로 저장하면 됨, 특정 URL에서만 쓰게되면 쿠키의 Path를 사용하여 쿠키를 사용하는게 바람직함.
 ```
+
+
 ## 웹 페이지를 전환하는 법  
 ```java
 response.sendRedirect("이동할 웹 사이트 주소");
