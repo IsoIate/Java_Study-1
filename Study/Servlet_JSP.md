@@ -342,4 +342,15 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
   -> <%@ page langiage="java" contentType="text/html;charset=UTF-8" @>
 ```   
 
+## JSP의 내장객체  
 
+```java
+PageContext pageContext;
+HttpSession session;
+ServletContext applitaion;
+ServletConfig config;
+JspWriter out;
+Object page;
+JspWriter _jspx_out;
+PageContext _jspx_page_context;
+```
