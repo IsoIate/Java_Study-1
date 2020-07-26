@@ -1,4 +1,4 @@
-# Servlet/JSP 강의 01 ~ 32
+# Servlet/JSP 강의 01 ~ 36
 자바 -> 자바웹 프로그래밍  
 자바 웹프로그래밍
 1. 서블릿 (HTML 코드 출력하기가 너무 힘듬)
@@ -273,4 +273,14 @@ cookie.setMaxAge(1000);
 - Session에 저장을 한다 -> 서버 자원을 사용하되, 생명주기는 세션이 시작해서 종료될 때 까지,  저장위치는 WAS 서버의 메모리이다.
 - Cookie에 저장을 한다 -> 웹 브라우저별 지정한 Path 범주에 저장, 브라우저에 전달한 시간부터 만료시간만큼 보관, 웹 브라우저에 저장됨.
 // 보관기간이 길어질 경우 쿠키로 저장하면 됨, 특정 URL에서만 쓰게되면 쿠키의 Path를 사용하여 쿠키를 사용하는게 바람직함.
+```
+## 웹 페이지를 전환하는 법  
+```java
+response.sendRedirect("이동할 웹 사이트 주소");
+```
+
+## Servlet에서 Javascript 실행하는법  
+```java
+ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn"); // nashorn은 엔진이름임 js엔진도 있음
+engine.eval("5+3"); // Javascript 실행문 반환형 Object
 ```
