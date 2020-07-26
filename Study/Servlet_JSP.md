@@ -1,4 +1,4 @@
-# Servlet/JSP 강의 01 ~ 41
+# Servlet/JSP 강의 01 ~ 44
 자바 -> 자바웹 프로그래밍  
 자바 웹프로그래밍
 1. 서블릿 (HTML 코드 출력하기가 너무 힘듬)
@@ -351,16 +351,13 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
   -> <%@ page langiage="java" contentType="text/html;charset=UTF-8" @>
 ```   
 
-## JSP의 내장객체  
-
+## JSP의 내장객체  ->  Jasper가 만들어낸 Servlet의 내장 객체
 ```java
-PageContext pageContext;
-HttpSession session;
-ServletContext applitaion;
-ServletConfig config;
-JspWriter out;
-Object page;
-JspWriter _jspx_out;
-PageContext _jspx_page_context;
+HttpServletRequest 객체
+HttpServletResponse 객체
+JspWriter 객체 // 직접 쓸일 없음
+HttpSession 객체
+ServletContext 객체 // application
 ```
-브랜치 테스트
+
+
