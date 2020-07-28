@@ -394,11 +394,6 @@ ServletContext 객체 // application
 - MODEL1 과 MODEL2의 가장 큰 차이점 -> 물리적으로 MODEL과 View를 나눴는가?, Controller & Dispatcher을 사용하여 포워딩을 했는가?  
 - forwarding을 하기위해 RequestDispatcher 클래스를 사용하여 현재의 request, response 객체를 다음 페이지인 "spag.jsp"에게 포워딩해줌  
 
-## MVC MODEL 1을 2로 변경  
-- Controller를 사용하여 Servlet과 JSP를 동시에 사용, Model과 View를 나눔  
-- MODEL1 과 MODEL2의 가장 큰 차이점 -> 물리적으로 MODEL과 View를 나눴는가?, Controller & Dispatcher을 사용하여 포워딩을 했는가?  
-- forwarding을 하기위해 RequestDispatcher 클래스를 사용하여 현재의 request, response 객체를 다음 페이지인 "spag.jsp"에게 포워딩해줌  
-
 ```java
 RequestDispatcher dispatcher = req.getRequestDispatcher("spag.jsp");
 dispatcher.forward(req, resp);
