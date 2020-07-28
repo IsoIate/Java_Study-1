@@ -1,4 +1,4 @@
-# Servlet/JSP 강의 01 ~ 46
+# Servlet/JSP 강의 01 ~ 32
 자바 -> 자바웹 프로그래밍  
 자바 웹프로그래밍
 1. 서블릿 (HTML 코드 출력하기가 너무 힘듬)
@@ -213,16 +213,18 @@ String[] values = request.getParameterValues("value");
  response.sendRedirect("경로");
  ```
 2. session  
-- session은 현재 접속자에 대한 데이터, application은 어플리케이션 전체에서 돌아가는 개념
+- session은 __현재 접속자__ 에 대한 데이터, application은 어플리케이션 전체에서 돌아가는 개념
 ```java
  HttpSession session = req.getSession();
  session.getAttribute("키");
  session.setAttribute("키", "값");
  ```  
 - 브라우저 별로 다른 세션으로 구분 (크롬, 파이어폭스, 익스플로러...)  
+- 같은 브라우저는 같은 세션으로 인식 (크롬 창을 2개 띄웠을 때)
 - WAS에 어플리케이션 공간에 사용자 마다 저장 할 수 있는 세션 공간이 있음  
-- 사용자를 식별하는 아이디를 SID(Session ID)를 사용하여 세션 공간에 데이터를 저장  
+- 사용자를 식별하는 아이디를 SID(Session ID)를 사용하여 세션 공간에 데이터를 저장 (처음에는 SID가 없음)  
 - 처음 실행 시 어플리케이션 공간만 가능, 로그인을 하였을 때 SID를 부여하여 세션을 통하여 데이터를 보관  
+- 브라우저 종료 시 SID 삭제
 - 쿠키로 세션 아이디를 전송  
 ```java
 // 세션관련 메서드
@@ -242,6 +244,7 @@ Long getLastAccessedTime()
 // 마지막 요청 시간, 1970년 1월 1일을 시작을 하는 밀리초
 ```
 3. cookie  
+- 상태 저장을 위한 값
 - 클라이언트에 저장하는 저장소  
 - Header 정보와 사용자 데이터를 가지고 있음  
 - 데이터의 유형을 이해해서 용도별로 맞는 처리를 해야함 Application, Session, Cookie...  
@@ -260,7 +263,7 @@ if(cookies != null){
 }
 ```
 - cookie를 사용할 때 알아야하는 옵션 -> 서블릿마다 쿠키가 다르니까, URL설정을 한다. 그래야만 쿠키를 효율적으로 사용할 수 있다.  
-- setPath() 메소드를 사용하여 쿠키 path설정  
+- setPath() 메소드를 사용하여 쿠키 path설정, 원하는 url에서만 사용 가능하도록 설정 가능  
 - cookie의 maxAge 설정 중요) 쿠키의 가장 큰 장점 -> 브라우저가 닫혀도 내가 원하는 기간을 설정하게 된다면 그 기간내에는 값을 유지 할 수 있음.  
 - 쿠키는 기본적으로 브라우저 메모리에있다가, 외부파일으로 저장됨.  
 ```java
@@ -351,51 +354,16 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
   -> <%@ page langiage="java" contentType="text/html;charset=UTF-8" @>
 ```   
 
-## JSP의 내장객체  ->  Jasper가 만들어낸 Servlet의 내장 객체  
-```java
-HttpServletRequest 객체
-HttpServletResponse 객체
-JspWriter 객체 // 직접 쓸일 없음
-HttpSession 객체
-ServletContext 객체 // application
-```
-
-## JSP MVC MODEL 1  
-- JSP파일에 있는 코드블럭을 최소한으로 줄임  
-
-```jsp
-// model
-<%
-	String temp = request.getParameter("cnt");
-	int cnt = temp == null ? 10 : Integer.parseInt(temp); 
-%>
-// view
-<%=cnt %>은  
-<% if(cnt % 2 != 0){ %>
-	홀수입니다.
-<%}else{ %>
-	짝수입니다.
-<%} %>
-```
-- 다음과같이 변경  
-```jsp
-// model
-<%
-	String temp = request.getParameter("cnt");
-	int cnt = temp == null ? 10 : Integer.parseInt(temp);
-	String result = cnt % 2 == 0 ? "짝수입니다." : "홀수입니다.";
-%>
-// view
-<%=result %>
-```
-
-## MVC MODEL 1을 2로 변경  
-- Controller를 사용하여 Servlet과 JSP를 동시에 사용, Model과 View를 나눔  
-- MODEL1 과 MODEL2의 가장 큰 차이점 -> 물리적으로 MODEL과 View를 나눴는가?, Controller & Dispatcher을 사용하여 포워딩을 했는가?  
-- forwarding을 하기위해 RequestDispatcher 클래스를 사용하여 현재의 request, response 객체를 다음 페이지인 "spag.jsp"에게 포워딩해줌  
+## JSP의 내장객체  
 
 ```java
-RequestDispatcher dispatcher = req.getRequestDispatcher("spag.jsp");
-dispatcher.forward(req, resp);
+PageContext pageContext;
+HttpSession session;
+ServletContext applitaion;
+ServletConfig config;
+JspWriter out;
+Object page;
+JspWriter _jspx_out;
+PageContext _jspx_page_context;
 ```
-
+브랜치 테스트
