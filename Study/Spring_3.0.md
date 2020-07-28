@@ -81,3 +81,127 @@ public class Foo {
     <constructor-arg type="java.lang.String" value="Spring" />
  </bean>
  ```
+ ###### Null 값을 넣어야 할 때
+ ```xml
+  <constructor-arg>
+    <value></value> <!-- 다음과 같이 하면 "" -> 공백 문자열이 입력됨 -->
+  </constructor-arg>
+-------------------------------------------------------------------------------
+  <constructor-arg>
+    <null /> <!-- Null 값을 넣는 바람직한 방법 -->
+  </constructor-arg>
+```
+
+### Bean 라이프 사이클  
+의존 관계 주입 컨테이너에서 핵심인 BeanFactory가 하는 역할은 Bean의 생성과 관리이다.  
+다음 예제는 BeanFactory에 의해 Bean이 생성되고, 그 Bean을 사용할 수 있기까지 호출되는 메서드를 확인하는 예제이다.  
+
+###### 예제의 파일 구조
+```
+-project
+   - build.xml
+   - beans.xml
+   - lib
+   - src
+     - sample1
+        - HelloApp.java
+        - MessageBean.java
+        - MessageBeanImpl.java
+        - CustomBeanPostProccesor.java
+```
+
+###### 스프링 설정 파일(beans.xml)  
+```xml
+<!-- Bean의 모든 프로퍼티 지정이 끝난 후 호출되는 메서드를 '사용자 구현 초기화 메서드' 라고 한다.
+     init-method 속성에 사용자가 실행할 메서드 명을 지정하면 지정한 메서드가 실행된다.-->
+<bean id="messageBean" class="sample1.MessageBeanImpl" init-method="init"> 
+  <property name="greeting">
+    <value>Hello, </value>
+  </property>
+</bean>
+```
+
+###### 소스 파일
+```java
+public class HelloApp {
+   public static void main(String[] args) {
+       XmlBeanFactory factory = new XmlBeanFactory(new FileSystemResource("beans.xml"));
+       factory.addBeanPostProccessor(new CustomBeanPostProcessor());
+       MessageBean bean = (MessageBean)factory.getBean("messageBean");
+       bean.sayHello();
+   }
+}
+```
+
+```java
+public class MessageBeanImpl implements MessageBean, BeanNameAware, BeanFactoryAware, InitializingBean, DisposableBean {
+    private String greeting;
+    private String name;
+    private String beanName;
+    private BeanFactory beanFactory;
+    
+    public MessageBeanImpl(){
+       System.out.println("1. Bean의 생성자 실행");
+    }
+    
+    public void setGreeting(String greeting){
+       this.greeting = greeting;
+       System.out.println("2. 설정 메서드 실행");
+    }
+    
+    public void setBeanName(String beanName){
+       System.out.println("3. Bean 이름지정");
+       this.beanName = beanName;
+       System.out.println(" ->" + beanName);
+    }
+    
+    public void setBeanFactory(BeanFactory beanFactory){
+       System.out.println("4. BeanFactory 지정");
+       this.beanFactory = beanFactory;
+       System.out.println(" ->" + beanFactory.getClass());
+    }
+    
+    public void init(){
+       System.out.println("7. 초기화 메서드 실행");
+    }
+    
+    public void destory(){
+       System.out.println("종료");
+    }
+    
+    publci void afterPropertiesSet(){
+       System.out.println("6. 프로퍼티 지정 완료");
+    }
+    
+    public void sayHello(){
+       System.out.println(greeting + beanName + "!");
+    }
+}
+```
+```java
+public class CustomBeanpostProcessor implements BeanPostProcessor {
+   @Override
+   public Object postProcessBeforeInitialization(Object bean, String beanName){
+      System.out.println("5. 초기화 전 Bean에 대한 처리 실행");
+      return bean;
+   }
+   @Override
+   public Object postProcessAfterInitialization(Object bean, String beanName){
+      System.out.println("6. 초기화 후 Bean에 대한 처리 실행");
+      return bean;
+   }
+}
+```
+
+###### 실행 순서
+ 1. Bean의 인스턴스화(생성자 호출)  
+ 2. 필드값 지정  
+ 3. setBeanName() 메서드 호출(BeanNameAware 인터페이스를 구현하고 있는 경우)  
+ 4. setBeanFactory() 메서드 호출(BeanFactoryAware 인터페이스를 구현하고 있는 경우)  
+ 5. BeanPostProcessor의 postProcessBeforeInitialization() 메서드 호출(BeanFactory에 BeanPostProcessor 클래스가 관련되어 있는 경우)  
+ 6. afterPropertiesSet() 메서드 호출(InitiailizingBean 인터페이스를 구현하고 있는 경우)  
+ 7. 사용자 구현 초기화 메서드 호출(사용자 구현 초기화 메서드를 정의하고 있는 경우)  
+ 8. BeanPostProcessor의 postProcessAfterInitialization() 메서드 호출(BeanFactory에 BeanPostProcessor 클래스가 관련되어 있는 경우)   
+###### 컨테이너가 종료될 때
+ 1. destory() 메서드 호출(DisposableBean 인터페이스를 구현하고 있는 경우)  
+ 2. 사용자 구현소거 메서드 호출(사용자 구현소거 메서드를 정의하고 있는 경우)  
