@@ -354,16 +354,42 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
   -> <%@ page langiage="java" contentType="text/html;charset=UTF-8" @>
 ```   
 
-## JSP의 내장객체  
-
+## JSP의 내장객체  ->  Jasper가 만들어낸 Servlet의 내장 객체  
 ```java
-PageContext pageContext;
-HttpSession session;
-ServletContext applitaion;
-ServletConfig config;
-JspWriter out;
-Object page;
-JspWriter _jspx_out;
-PageContext _jspx_page_context;
+HttpServletRequest 객체
+HttpServletResponse 객체
+JspWriter 객체 // 직접 쓸일 없음
+HttpSession 객체
+ServletContext 객체 // application
 ```
-브랜치 테스트
+## JSP MVC MODEL 1  
+- JSP파일에 있는 코드블럭을 최소한으로 줄임  
+```jsp
+// model
+<%
+	String temp = request.getParameter("cnt");
+	int cnt = temp == null ? 10 : Integer.parseInt(temp); 
+%>
+// view
+<%=cnt %>은  
+<% if(cnt % 2 != 0){ %>
+	홀수입니다.
+<%}else{ %>
+	짝수입니다.
+<%} %>
+```
+- 다음과같이 변경  
+```jsp
+// model
+<%
+	String temp = request.getParameter("cnt");
+	int cnt = temp == null ? 10 : Integer.parseInt(temp);
+	String result = cnt % 2 == 0 ? "짝수입니다." : "홀수입니다.";
+%>
+// view
+<%=result %>
+```
+## MVC MODEL 1을 2로 변경  
+- Controller를 사용하여 Servlet과 JSP를 동시에 사용, Model과 View를 나눔  
+- MODEL1 과 MODEL2의 가장 큰 차이점 -> 물리적으로 MODEL과 View를 나눴는가?, Controller & Dispatcher을 사용하여 포워딩을 했는가?  
+- forwarding을 하기위해 RequestDispatcher 클래스를 사용하여 현재의 request, response 객체를 다음 페이지인 "spag.jsp"에게 포워딩해줌  
