@@ -63,13 +63,19 @@ public class Foo {
  ref                    자식 요소 <ref bean="Bean 이름" /> 대신 사용할 수 있다.
  value                  자식 요소 <value>값</value>대신 사용할 수 있다.
  ------------------------------------------------------------------------------------------------------
- 아래와 같이 생성자를 통해 주입하는 경우
+ ```
+ ###### 아래와 같이 생성자를 통해 주입하는 경우
+ ```java
  Foo(int a, String b){...}
+ ```
+ ```xml
  <bean id="foo" class="Foo">
     <constructor-arg index="0" value="25" />
     <constructor-arg index="1" value="Spring" />
  </bean>
- 타입을 지정해서 보낼 수도 있음
+ ```
+ ###### 타입을 지정해서 보낼 수도 있음
+ ```xml
   <bean id="foo" class="Foo">
     <constructor-arg type="int" value="25" />
     <constructor-arg type="java.lang.String" value="Spring" />
