@@ -53,8 +53,8 @@ public class Foo {
     </property>
 </bean>
 ```
-### <constructor-arg>요소와 <property> 요소에 대해
- - <constructor-arg>와 <property> 요소는 다음과 같은 속성이 있다. 단 <property> 요소는 ref 속성과 value 속성을 가진다.  
+### constructor-arg요소와 property 요소에 대해
+ - constructor-arg와 property 요소는 다음과 같은 속성이 있다. 단 property 요소는 ref 속성과 value 속성을 가진다.  
  ```
  속성                   설명
  ------------------------------------------------------------------------------------------------------
