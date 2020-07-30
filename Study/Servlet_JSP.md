@@ -340,10 +340,11 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 1. 코드블록, 기본 실행
  ->    <%  
     int a = 0;
-    int c = 3;
+    int c = 3; (out.write)
  %>
 2. 코드블록,출력
- ->    <%= x+y %>
+ ->    <%= x+y %> (out.print)
+ 
 3. 선언부(Declaration)
  -> <%!  
   public static void add(){
@@ -352,6 +353,7 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
   %>
 4. 지시 블럭, 초기 설정을 위한 Page 지시자
   -> <%@ page langiage="java" contentType="text/html;charset=UTF-8" @>
+  - 가장 먼저 실행됨
 ```   
 
 ## JSP의 내장객체  ->  Jasper가 만들어낸 Servlet의 내장 객체  
