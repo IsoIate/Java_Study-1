@@ -33,7 +33,7 @@
 - 페이징 처리 (javascript, ajax 사용)
 - 능력되는대로 메일서버 (Java SMTP 사용)
 - ~~참고 사이트 [우아한 형제 모티브로 제작 디자인 참고](http://woowabros.github.io/category/experience/)~~  
-- [MatchesFashion](https://github.com/eggme/MatchesFashion) 으로 변경  
+- 저장소 링크 -> [MatchesFashion](https://github.com/eggme/MatchesFashion) 으로 변경  
 - 참고사이트 [MatchesFashion](https://www.matchesfashion.com/en-kr/)  
 * * *
 
