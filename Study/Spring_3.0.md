@@ -205,3 +205,42 @@ public class CustomBeanpostProcessor implements BeanPostProcessor {
 ###### 컨테이너가 종료될 때
  1. destory() 메서드 호출(DisposableBean 인터페이스를 구현하고 있는 경우)  
  2. 사용자 구현소거 메서드 호출(사용자 구현소거 메서드를 정의하고 있는 경우)  
+
+
+###### ApplicationContext 인터페이스
+ - BeanFactory에 몇 가지 편리한 기능을 추가
+ - 메시지 국제화, 자원 접근 수단 간소화, 이벤트 처리, 복수 컨텍스트 적재 기능 추가
+```java
+XmlBeanFactory factory = new XmlBeanFactory(new FileSystemResource("beans.xml"));
+// factory.addBeanPostProcessor("new BeanName()"); ...
+// 다음과 같이 변경
+ApplicationContext factory = new FileSystemApplicationContext("beans.xml");
+```
+ - ApplicationContext는 BeanPostProcessor을 자동으로 읽어 들이기 때문에 addBeanPostProcessor()을 제거 하는 대신 beans.xml에 다음과 같은 Bean 정의를 추가
+```xml
+<bean class="sample1.CustomBeanPostProcessor" />
+```
+ - 결과적으로 코드는 다음과 같음
+```java
+public class HelloApp{
+   public static void main(String[] args){
+       ApplicationContext factory = new FileSystemApplicationContext("beans.xml");
+       MesssageBean bean = (MessageBean)factory.getBean("messageBean");
+       bean.sayHello();
+   }
+}
+```
+```xml
+<beans xml...>
+  <bean id="messageBean" class="sample1.MessageBeanImpl" init-method="init">
+   <property name="greeting><value>Hello, </value></property>
+  </bean>
+  <bean class="sample1.CustomBeanPostProcessor" />
+</beans>
+```
+```
+※ 이 책에선 @Autowired 어노테이션을 설명하지 않음  
+@Autowired의 어노테이션의 속성
+required -> 의존관계 설정이 필수인지 여부를 true/false로 지정한다. 기본 값은 true.
+```
+ 
