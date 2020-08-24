@@ -219,11 +219,105 @@ __소규모 애플리케이션 또는 기업용 어플리케이션을 자바로 
  file:///me/whiteship/config.xml
  ```
 # Validation
-
+ - 애플리케이션에서 사용하는 객체 검증용 인터페이스
+ - BeanValidation은 Annotation을 사용하여 객체를 검증할 수 있음, JAVA 표준 스펙, J2EE 표준 스펙
+ - NotNull, Size, MAx, Min, NotEmpty 등 여러 Annotation 존재
+ - Validator를 사용하려면 두 가지 메서드를 구현해야하는데 그중에 하나가 supports(Class class) 그리고 validate(Object target, Erroes erroes)....
+ - 스프링 부트 2.0.5 이상 버전을 사용할 때 Annotation으로 Validation 가능
+ - 하지만 복잡한 Validation을 한다면 직접 구현해서 하는것이 맞음
 # 데이터 바인딩
-
+### 데이터바인딩 추상화 PropertyuEditor
+ - 기술적인 관점 : 어떤 프로퍼티의 값을 타겟 객체에 설정하는 기능
+ - 사용자 관점 : 사용자 입력값을 애플리케이션 도메인 모델에 동적으로 변환해 넣어주는 기능
+ - DataBinder은 스프링 웹 MVC에서만 특화되는게 아니고, PropertyEditor를 사용하는 DataBinder는 ApplicationContext에서 XML설정 파일을 사용할 때, 설정파일의 bean을 적절한 Bean객체로 바꿔주는데 사용이 된다. (여러 곳에서 쓰이는 스프링의 핵심 기술...)
+ ```java
+ beans...
+ <bean id="a" class="...">
+ 
+ (...)cxt.getBean("a");
+ ```
+ - 이게 PropertyEditor의 DataBinder같음
+ - Spring 3.0 이후부턴 DataBinder말고 Converter를 사용하는듯
+ - Object와 String 변환만 가능이라 사용 범위가 제한적
+### 데이터바인딩 추상화 Converter, Formatter
+ - Converter
+  - S 타입을 T 타입을 변환할 수 있는 매우 일반적인 변환기 (Generic을 도입한 듯....)
+  - ConverterRegistry에 등록을 해야함
+ - Fomatter
+  - PropertyEditor 대체제
+  - Object와 String간의 변환을 담당, 문자열을 Locale에 따라 다국화하는 기능도 제공
+  - FomatterRegiostry에 등록해서 사용
+  - 타입을 변환하는 작업은 DataBinder대신에 Converer와 Fomatter를 사용할 수 있고 활용할 수 있는 ConversionService가 일을 하게 된다.
+  - Thread-safe하게 사용할 수 있고, 스프링 MVC, 빈 설정 SqEL에서도 사용
+  - DefaultFormattingConversionService
+   - FormatterRegistry
+   - ConversionService 
+   - __둘다 사용가능__
+  - 스프링 부트
+   - 웹 어플리케이션인 경우 DefaultFormattingConversionService를 상속하여 만든 __WebConversionService__ 를 빈으로 등록해 준다. __(Formatter와 Conveter 빈을 찾아 자동으로 등록해준다.)__ 
+   - WebConversionService는 스프링 부트가 제공해주는 클래스, DefaultFormattingConversionService를 상속해서 만듬 (더 많은 기능 보유)
+   ㅋ
 # SpEL
-
+__스프링 EL이란?__
+ - 객체 그래프를 조회하고 조작하는 기능을 제공
+ - Unified EL과 비슷하지만, 메소드 호출을 지원하며, 문자열 템플릿도 제공한다.
+ - OGNL, MVEL, JBOss EL 등 자바에서 사용할 수 있는 여러 EL이 있지만, SqEL은 모든 스프릉 프로젝트 전반에 걸쳐 사용할 EL로 만들었다.
 # 스프링 AOP
-
+ - AOP는 OOP를 보완하는 수단으로, 흩어진 Aspect를 모듈화 할 수 있는 프로그래밍 기법
+ - 관심사를 묶어서 모듈화한 후 적용시키는 프로그래밍 방법?..
+ - Aspect는 모듈, 모듈에 들어가는건 Advice -> 해야할 일들, Pointcut-> 적용되야하는 위치에 대한 정보, Target은 적용이 되는 대상, Join Point -> 합류점?, 메서드 실행 시점
+ - AOP적용 방법
+  - 컴파일 타임
+  - 로드 타임
+  - 런타임
+ - 스프링 AOP의 특징
+  - 프록시 기반의 AOP구현체
+  - 스프링 빈엠나 AOP를 적용할 수 있다.
+  - 모든 AOP기능을 제공하는게 목적이 아니라, 스프링 IoC와 연동하여 엔터프라이즈 애플리케이션에서 가장 흔한 문제에 대한 해결책을 제공하는게 목적
+ - 애스팩트 정의
+  - @Aspect
+  - 빈으로 등록해야하니까 @Component추가
+ - 포인트컷 정의
+  - @Pointcut
+  - 주요 표현식
+   - __execution__  
+    ```java
+    @Around("execution(* my.whiteship..*.EventService.*(..))") // EventService말고 * 쓰면 해당 패키지의 전체 프록시 생성
+    public Object logPerf(ProceedingJoinPoint pjp) throws Throwable {
+       long begin = System.currentTimeMillis();
+       Object retVal = pjp.proceed();
+       System.out.println(System.currentTimeMillis() - begin);
+       return retVal;
+    }
+   ```
+   - __@annotation__  
+    ```java
+    @Documented
+    @Retention(RetentionPolicy.CLASS) // 이 어노테이션 정보를 얼마나 유지할것인가? CLASSFILE, COMPILE, RUNTIME -> CLASS가 기본 값
+    @Target({ElementType.METHOD})
+    public @interface PerfLogging {
+    }
+    
+    ....
+    
+    @Around("@annotation(PerfLogging)") // Annotation 클래스명
+    public Object logPerf(ProceedingJoinPoint pjp) throws Throwable {
+       long begin = System.currentTimeMillis();
+       Object retVal = pjp.proceed();
+       System.out.println(System.currentTimeMillis() - begin);
+       return retVal;
+    }
+   ```
+   - __bean__  
+   ```java
+    @Around("bean(simpleEventService)") // 빈 이름
+    public Object logPerf(ProceedingJoinPoint pjp) throws Throwable {
+       long begin = System.currentTimeMillis();
+       Object retVal = pjp.proceed();
+       System.out.println(System.currentTimeMillis() - begin);
+       return retVal;
+    }
+   ```
 # Null-Safety
+ - 스프링 프레임워크 5에 추가된 Null 관련 어노테이션
+ - 컴파일 타임에 최대한 NullPointException을 방지하는 것
