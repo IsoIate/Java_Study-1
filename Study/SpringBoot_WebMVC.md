@@ -83,6 +83,7 @@ public void createUser_JSON() throws Exception {
  - classpath:/public
  - classpath:/resources/
  - classpath:/META-INF/resources
+- application.properties에서 변경
  - spring.mvc.static-path-parttern : 매핑 설정 변경 가능
  - spring.mvc.static-locations: 리소스 찾을 위치 변경 가능
 - Last-Modified 헤더를 보고 304 응답을 보냄
@@ -96,9 +97,102 @@ public void createUser_JSON() throws Exception {
         .setCachePeriod(20);
  }
  ```
+## 웹 JAR
+- 웹 JAR란 클라이언트에서 사용하는 자바스크립트 라이브러리같은 것을 JAR파일로 의존성을 받아서 css 혹은 html, javascript에서 참조할 수 있음
+- 웹 JAR맵핑 "/webjars/**" 
+```
+<dependency>
+      <groupId>org.webjars.bower</groupId>
+      <artifactId>jquery</artifactId>
+      <version>3.2.1</version>
+</dependency>
+```
+```
+<script src="/webjars/jquery/3.2.1/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        alert("ready!!");
+    });
+</script>
+```
+- 모듈의 버전을 생략하고 사용하려면, webjars-locator-core의존성을 추가하면 됌
+```
+<dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>webjars-locator-core</artifactId>
+      <version>0.35</version>
+</dependency>
+```
+```
+<script src="/webjars/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        alert("ready!!");
+    });
+</script>
+```
+## index 페이지와 파비콘
+- root를 요청했을 때 웰컴 페이지를 보여주기  
+ - index.html 찾아 보고 있으면 제공  
+ - index.템플릿 찾아보고 있으면 제공  
+ - 둘 다 없으면 에러페이지  
+- 파비콘이란 브라우저 title 옆에 있는 아이콘  
+ - favicon.ico  
+ - 파비콘 만들기 [https://favicon.io/](https://favicon.io/)  
+## Thymeleaf  
+- 스프링 부트가 자동 설정을 지원하는 템플릿 엔진  
+- 템플릿 엔진이란 주로 View를 만들고, Code Generation, Email Template 제공  
+ - Freemarket  
+ - Groovy  
+ - __Thymeleaf__  
+ - Mustache  
+- JSP를 권장하지 않는 이유  
+ - JAR 패키징 할 때는 동작하지 않고 WAR 패키징을 해야만 동작  
+ - Undertow는 JSP를 지원하지 않음  
+- __Thymeleaf 사용하기__  
+ - 의존성 추가 : spring-boot-starter-thymeleaf 
+ - 템플릿 파일 위치 : /src/main/resources/template  
+- JSP는 테스트가 어려움, Servlet Engine을 사용하기 때문...
 
-
-
-
-
-
+## HtmlUnit
+- HTML을 단위테스트하는 모듈
+- 의존성 추가
+```
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>htmlunit-driver</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit</artifactId>
+            <scope>test</scope>
+        </dependency>
+```
+## ExceptionHandler
+- 스프링 @MVC 예외 처리 방법
+ - @ControllerAdvice
+ - @ExchangepHandler
+- 스프링 부트가 제공하는 기본 예외 처리기
+ - BasicErrorController
+  - HTML과 JSON응답 지원
+ - 커스터마이징 방법
+  - ErrorController 구현
+### __쉽게 Error페이지 만들기__
+- resources/static|template/error/ 에 404.html 혹은 5xx.html 등 에러코드 이름이 있으면 ErrorViewResolover가 돌려줌
+## Spring HATEOAS
+- __H__ ypermedia __A__ s __T__ he __E__ ngine __O__ f __A__ pplication __S__ tate  
+- 서버 : 현재 리소스와 연관된 링크 정보를 클라이언트에게 제공한다.
+- 클라이언트 : 연관된 링크 정보를 바탕으로 리소스에 접근한다.
+- 연관된 링크 정보
+ - Relation
+ - Hypertext REference
+## CORS
+- 한 호스트에서 다른 포트 접속이 불가능한데 그걸 해결하는 듯..?
+- SOP과 CORS
+ - Single-Origin Policy
+ - Cross-Origin Resource Sharing
+ - Origin??
+   - URI 스키마 (http, https)
+   - hostname (whieship.me, localhost)
+   - 포트 (8080, 18080)
