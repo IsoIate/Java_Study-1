@@ -188,7 +188,8 @@ public void createUser_JSON() throws Exception {
  - Relation
  - Hypertext REference
 ## CORS
-- 한 호스트에서 다른 포트 접속이 불가능한데 그걸 해결하는 듯..?
+- 한 호스트에서 다른 포트 접속이 불가능한데 그걸 해결하는 듯..? 예를들면 18080포트를 사용하여 웹 서버를 구동한 뒤 똑같은 호스트에서 8080포트 웹서버로 Ajax통신을 보내보는것?
+- 원래대로라면 Single-Origin Policy 때문에 구동 불가, 하지만 Cross-Origin Resource Sharing을 사용한다면 가능
 - SOP과 CORS
  - Single-Origin Policy
  - Cross-Origin Resource Sharing
