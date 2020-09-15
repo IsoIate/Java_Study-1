@@ -43,7 +43,48 @@ spring.datasource.password=root
 - ORM(Object-Relation-Mapping)과 JPA(Java Persistence API)
  - 객체와 릴레이션을 맵핑할 때 발생하는 개념적 불일치를 해결하는 프레임워크
  - JPA : ORM을 위한 자바 (EE)표준
+ 
 #### 스프링 데이터 JPA
 - Repository 빈 자동 생성
+
 - 쿼리 메소드 자동 구현
 - @EnableJpaRepositories (스프링 부트가 자동으로 설정 해줌)
+- SDJ -> JPA -> Hibernate -> Datasource
+- __신기함...__
+- @Entity를 가지고있는 Class 들을 전부 Table로 변환시켜줌
+```
+@Entity
+public class Account {
+
+    // autoincrement 같은기능
+    @Id @GeneratedValue
+    private Long id;
+
+    private String username;
+
+    private String password;
+    ... //getter setter 필수
+```
+#### 데이터베이스 초기화
+- JPA를 사용한 데이터베이스 초기화
+```
+spring.jpa.generate-ddl=true // 이 설정이 필수
+spring.jpa.hibernate.ddl-auto=create
+// ddl-auto는 update, create, create-drop 세 개중에 한개를 쓰면 됌
+// validate는 검증, 이전 컬럼과 Object와 매핑이 안돼면 에러를 뱉음, 그럴 때 update를 해주면 alter가 적용됌
+spring.jpa.show-sql=true // 내용을 Console에 찍음
+```
+- JPA를 사용한 데이터베이스 초기화
+ ```
+ spring.jpa.hibernate.ddl-auto= none | update | create | validate | create-drop
+ spring.jpa.hibernate.ddl-auto=true 로 설정해줘야 동작함
+ ```
+- SQL 스크립트를 사용한 데이터베이스 초기화
+```
+schema.sql 또는 schema-${platform}.sql
+data.sql 또는 data-${platform}.sql
+${platform} 값은 spring.datasource.platform으로 설정 가능.
+```
+
+
+
