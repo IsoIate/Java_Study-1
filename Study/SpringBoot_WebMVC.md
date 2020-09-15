@@ -208,4 +208,14 @@ public void createUser_JSON() throws Exception {
 ## Dispatcher-Servlet의 장점
  - SpringMVC는 DispatcherServlet이 등장함에 따라 web.xml의 역할을 상당히 축소시켜주었다. 기존에는 모든 서블릿에 대해 URL 매핑을 활용하기 위해서 web.xml에 모두 등록해주어야 했지만, dispatcher-servlet이 해당 어플리케이션으로 들어오는 모든 요청을 핸들링 해주면서 작업을 상당히 편리하게 할 수 있게 되었다. 그리고 이 서블릿을 이용한다면 @MVC 역시 사용할 수 있게되어 좋다.
  
+## Dispatcher-Servlet 구조
+ ![Dispatcher-Servlet](https://github.com/eggme/Java_Study/blob/master/img/SpringMVC%20Structure.PNG)  
+ 
+- Dispatcher-Servlet의 구조는 효율적으로 보이나, 모든 요청을 처리하다보니 img, js, css 파일 요청 등 Dispatcher-Servlet이 가로채는 현상이 발생됩니다. 이에 대한 해결책은
+```
+1. /apps 의 URL로 접근하면 Dispatcher Servlet이 담당한다.
+2. /resources 의 URL로 접근한다면 Dispatcher-Servlet이 컨트롤 할 수 없으므로 담당하지 않는다.
+```
+- 이러한 방식은 코드가 상당히 지저분해져서 직관적인 설계가 될 수 없다. Spring은 이러한 문제를 해결함과 동시에 편리한 방법을 제공해주는데, 그것은 바로 ```<mvc:resources />```를 이용한 방법이다.
+- 만약 DispatcherServlet에서 해당 요청을 찾을 수 없다면, 2차적으로 설정된 경로에서 요청을 탐색하여 자원을 찾아내는 방법이다. -> Resource 추상화?
  
