@@ -197,3 +197,6 @@ public void createUser_JSON() throws Exception {
    - URI 스키마 (http, https)
    - hostname (whieship.me, localhost)
    - 포트 (8080, 18080)
+## RestController 과 Controller의 차이
+ - @Controller는 주로 View를 반환하기 위해 사용합니다. 아래와 같은 과정을 통해 Spring MVC Container는 Client의 요청으로부터 View를 반환합니다.  
+ - @RestController는 Spring MVC Controlle에 @ResponseBody가 추가된 것입니다. 당연하게도 RestController의 주용도는 Json 형태로 객체 데이터를 반환하는 것입니다.  
