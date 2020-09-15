@@ -85,6 +85,8 @@ schema.sql 또는 schema-${platform}.sql
 data.sql 또는 data-${platform}.sql
 ${platform} 값은 spring.datasource.platform으로 설정 가능.
 ```
-
-
+## 데이터베이스 마이그레이션
+- Flyway 와 Liquibase
+- DB 스키마와 데이터들을 버전관리하듯이 할 수 있음..
+- 반드시 ```V(Number)__(text).xml``` 로 만들어야함
 
