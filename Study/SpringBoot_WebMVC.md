@@ -200,3 +200,12 @@ public void createUser_JSON() throws Exception {
 ## RestController 과 Controller의 차이
  - @Controller는 주로 View를 반환하기 위해 사용합니다. 아래와 같은 과정을 통해 Spring MVC Container는 Client의 요청으로부터 View를 반환합니다.  
  - @RestController는 Spring MVC Controlle에 @ResponseBody가 추가된 것입니다. 당연하게도 RestController의 주용도는 Json 형태로 객체 데이터를 반환하는 것입니다.  
+ 
+## Dispatcher-Servlet 이란?
+ - Servlet Container에서 HTTP프로토콜을 통해 들어오는 모든 요청을 프레젠테이션 계층의 제일앞에 둬서 중앙집중식으로 처리해주는 프론트 컨트롤러(Front Controller)  
+ - 클라이언트로부터 어떠한 요청이 오면 Tomcat과 같은 서블릿컨테이너가 요청을 받는데, 이때 제일 앞에서 서버로 들어오는 모든 요청을 처리하는 *프론트 컨트롤러*를 Spring에서 정의하였고, 이를 Dispatcher-Servlet이라고 한다. 그래서 공통처리작업을 Dispatcher 서블릿이 처리한 후, 적절한 세부 컨트롤러로 작업을 위임해줌.
+ - 물론 Dispatcher-Servlet이 처리하는 url 패턴을 지정해주어야 하는데 일반적으로는 ```/*.do```,와 같이 /로 시작하며, .do 로 끝나는 url 패턴에 대해서 처리하라고 지정해준다.
+## Dispatcher-Servlet의 장점
+ - SpringMVC는 DispatcherServlet이 등장함에 따라 web.xml의 역할을 상당히 축소시켜주었다. 기존에는 모든 서블릿에 대해 URL 매핑을 활용하기 위해서 web.xml에 모두 등록해주어야 했지만, dispatcher-servlet이 해당 어플리케이션으로 들어오는 모든 요청을 핸들링 해주면서 작업을 상당히 편리하게 할 수 있게 되었다. 그리고 이 서블릿을 이용한다면 @MVC 역시 사용할 수 있게되어 좋다.
+ 
+ 
