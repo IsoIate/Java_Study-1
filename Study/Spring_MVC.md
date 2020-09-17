@@ -78,3 +78,16 @@ public class WebConfig implements WebMvcConfigurer {
            afterCompletion 1
      */
 ```
+## 리소스 핸들러
+- 서블릿 컨테이너가 제공하는 default Servlet를 이해해야함
+- 이미지, 자바스크립트, CSS, HTML 와 같은 정적인 리소스에 대한 요청을 처리하는 핸들러
+- 이 핸들러는 서블릿 컨테이너가 기본으로 제공하는 default Servlet이라는게 있다.
+- 각각의 모든 컨테이너는 이런 정적인 자원을 처리하는 default Servlet이 있다.
+- 스프링은 이런 등록되어있는 default Servlet에 요청을 위임해서 정적인 리소스를 처리함
+- 스프링부트 -> 기본적인 정적 리소스 핸들러와 캐싱 제공
+
+## HttpMessageConverter
+- @RequestBody를 사용하면 요청 본문에 들어있는 메시지를 HttpMessageConverter을 사용하여 객체로 변환을 함
+- @ResonseBody를 사용하여 응답(리턴 값)을 응답의 본문으로 넣어줌
+
+# SpringMVC 활용
