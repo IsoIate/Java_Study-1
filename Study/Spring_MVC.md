@@ -91,3 +91,43 @@ public class WebConfig implements WebMvcConfigurer {
 - @ResonseBody를 사용하여 응답(리턴 값)을 응답의 본문으로 넣어줌
 
 # SpringMVC 활용
+
+## HTTP 요청 맵핑하기, 요청 메소드
+- 클래스에 @RequestMapping(method=RequestMethod.GET)을 적으면 해당 클래스는 GET요청만 받을 수 있는 것
+
+## URI 패턴 매핑 방법
+- 모든 URL은 URI이다, URI 중에 URL이랑 URN이 포함되어있음
+
+#### 요청 식별자로 맵핑하기
+- @RequestMapping은 다음의 패턴을 지원합니다
+  - ? -> 한 글자 ("/author/???"  ===>  "/author/123")
+  - * -> 여러 글자 ("/author/*"  ===>  "/author/seungjun")
+  - ** -> 여러 패스 ("/author/**"  ===>  "/author/seungjun/books")
+  
+#### 클래스에 선언한 @RequestMapping과 조합 가능
+```
+@RequestMapping("/hello")
+@Controller
+public class SampleController{
+    @RequestMapping("/**")
+    ...
+}
+```
+
+#### 정규 표현식으로도 가능
+- ```/{name:정규식}```
+```
+@RequestMapping("/{name:[a-z]+}")
+public String hello(@PathVariable String name){
+    return "hello "+ name;
+}
+```
+#### 패턴이 중복되는 경우엔??
+- 가장 구체적으로 맵핑되는 핸들러를 선택해서 맵핑해줌
+
+#### URI 확장자 맵핑 지원
+- RequestMapping을 ``` @RequestMapping("/seungjun") ``` 이렇게만 해도 스프링이 암묵적으로 ``` @RequestMapping({"/seungjun", "/seungjun/*"}) ``` 이렇게 바꿔주는데 스프링 부트는 이 기능을 사용하지 않도록 설정 해 줌
+- RFD Attack 때문에 권장하지 않음
+
+## 컨텐츠 타입 맵핑
+- 컨텐츠 타입, accept-Head 가 특정한 데이터 타입일 경우 처리하는 핸들러 ``` @RequestMapping(consumes="application/json") ```
