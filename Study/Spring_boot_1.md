@@ -25,18 +25,18 @@
    #### 자동 설정  
    ##### EnableAutoConfiguration
    - SpringBoot가 bean 등록하는 단계는 총 두 단계가 있다.
-    1. ComponentScan으로 한번 스캔한 후
-    2. EnableAutoConfiguration으로 다시한번 스캔
+     1. ComponentScan으로 한번 스캔한 후
+     2. EnableAutoConfiguration으로 다시한번 스캔
    - ComponentScan
-    - Component라는 어노테이션을 가진 클래스들을 스캔해서 빈으로 등록
-    - Component로 포함되는 멤버들
-     1. Configuration
-     2. Repository
-     3. Service
-     4. Controller
-     5. RestController
+     - Component라는 어노테이션을 가진 클래스들을 스캔해서 빈으로 등록
+     - Component로 포함되는 멤버들
+       1. Configuration
+       2. Repository
+       3. Service
+       4. Controller
+       5. RestController
    - EnableAutoConfigration
-    - org.springframework.boot.autoconfigure.EnableAutoConfiguration의 META-INF의 spring.factories에서 Spring Meta file을 읽어 들어오는 것, 결국 Configuration으로 빈으로 등록이 됌
+     - org.springframework.boot.autoconfigure.EnableAutoConfiguration의 META-INF의 spring.factories에서 Spring Meta file을 읽어 들어오는 것, 결국 Configuration으로 빈으로 등록이 됌
    #### 내장 서블릿 컨테이너
    - ServletWebServerFactoryAutoConfiguration (서블릿 웹 서버 생성)
    - TomcatServletWebServerFactoryCustomizer (서버 커스터마이징)
@@ -59,11 +59,11 @@
    - mvn package를 하면 실행 가능한 JAR파일 "하나가" 생성 됨
    - spring-maven-plugin이 해주는 일(패키징)
    - 과거 "uber" jar를 사용
-    - 모든 클래스(의존성 및 애플리케이션)를 하나로 압축하는 방법
-    - 뭐가 어디서 온건지 알 수가 없었음
+     - 모든 클래스(의존성 및 애플리케이션)를 하나로 압축하는 방법
+     - 뭐가 어디서 온건지 알 수가 없었음
    - 스프링 부트의 전략
-    - 내장 JAR : 기본적으로 자바에는 내장  JAR를 로딩하는 표준적인 방법이 없ㅇ므.
-    - 애플리케이션 클래스와 라이브러리 위치 구분
-     - org.springframework.boot.loader.jav.JarFile을 사용해서 내장 JAR를 읽음
-     - org.springframework.boot.loader.Launcher를 사용하여 실행한다.
+     - 내장 JAR : 기본적으로 자바에는 내장  JAR를 로딩하는 표준적인 방법이 없ㅇ므.
+     - 애플리케이션 클래스와 라이브러리 위치 구분
+       - org.springframework.boot.loader.jav.JarFile을 사용해서 내장 JAR를 읽음
+       - org.springframework.boot.loader.Launcher를 사용하여 실행한다.
    
