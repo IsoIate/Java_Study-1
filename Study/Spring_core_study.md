@@ -241,22 +241,22 @@ __소규모 애플리케이션 또는 기업용 어플리케이션을 자바로 
  - Object와 String 변환만 가능이라 사용 범위가 제한적
 ### 데이터바인딩 추상화 Converter, Formatter
  - Converter
-  - S 타입을 T 타입을 변환할 수 있는 매우 일반적인 변환기 (Generic을 도입한 듯....)
-  - ConverterRegistry에 등록을 해야함
+   - S 타입을 T 타입을 변환할 수 있는 매우 일반적인 변환기 (Generic을 도입한 듯....)
+   - ConverterRegistry에 등록을 해야함
  - Fomatter
-  - PropertyEditor 대체제
-  - Object와 String간의 변환을 담당, 문자열을 Locale에 따라 다국화하는 기능도 제공
-  - FomatterRegiostry에 등록해서 사용
-  - 타입을 변환하는 작업은 DataBinder대신에 Converer와 Fomatter를 사용할 수 있고 활용할 수 있는 ConversionService가 일을 하게 된다.
-  - Thread-safe하게 사용할 수 있고, 스프링 MVC, 빈 설정 SqEL에서도 사용
-  - DefaultFormattingConversionService
-   - FormatterRegistry
-   - ConversionService 
+   - PropertyEditor 대체제
+   - Object와 String간의 변환을 담당, 문자열을 Locale에 따라 다국화하는 기능도 제공
+   - FomatterRegiostry에 등록해서 사용
+   - 타입을 변환하는 작업은 DataBinder대신에 Converer와 Fomatter를 사용할 수 있고 활용할 수 있는 ConversionService가 일을 하게 된다.
+   - Thread-safe하게 사용할 수 있고, 스프링 MVC, 빈 설정 SqEL에서도 사용
+   - DefaultFormattingConversionService
+    - FormatterRegistry
+    - ConversionService 
    - __둘다 사용가능__
-  - 스프링 부트
+ - 스프링 부트
    - 웹 어플리케이션인 경우 DefaultFormattingConversionService를 상속하여 만든 __WebConversionService__ 를 빈으로 등록해 준다. __(Formatter와 Conveter 빈을 찾아 자동으로 등록해준다.)__ 
    - WebConversionService는 스프링 부트가 제공해주는 클래스, DefaultFormattingConversionService를 상속해서 만듬 (더 많은 기능 보유)
-   ㅋ
+   
 # SpEL
 __스프링 EL이란?__
  - 객체 그래프를 조회하고 조작하는 기능을 제공
@@ -267,21 +267,21 @@ __스프링 EL이란?__
  - 관심사를 묶어서 모듈화한 후 적용시키는 프로그래밍 방법?..
  - Aspect는 모듈, 모듈에 들어가는건 Advice -> 해야할 일들, Pointcut-> 적용되야하는 위치에 대한 정보, Target은 적용이 되는 대상, Join Point -> 합류점?, 메서드 실행 시점
  - AOP적용 방법
-  - 컴파일 타임
-  - 로드 타임
-  - 런타임
+   - 컴파일 타임
+   - 로드 타임
+   - 런타임
  - 스프링 AOP의 특징
-  - 프록시 기반의 AOP구현체
-  - 스프링 빈엠나 AOP를 적용할 수 있다.
-  - 모든 AOP기능을 제공하는게 목적이 아니라, 스프링 IoC와 연동하여 엔터프라이즈 애플리케이션에서 가장 흔한 문제에 대한 해결책을 제공하는게 목적
+   - 프록시 기반의 AOP구현체
+   - 스프링 빈엠나 AOP를 적용할 수 있다.
+   - 모든 AOP기능을 제공하는게 목적이 아니라, 스프링 IoC와 연동하여 엔터프라이즈 애플리케이션에서 가장 흔한 문제에 대한 해결책을 제공하는게 목적
  - 애스팩트 정의
-  - @Aspect
-  - 빈으로 등록해야하니까 @Component추가
+   - @Aspect
+   - 빈으로 등록해야하니까 @Component추가
  - 포인트컷 정의
-  - @Pointcut
-  - 주요 표현식
-   - __execution__  
-    ```java
+   - @Pointcut
+   - 주요 표현식
+ - __execution__  
+```java
     @Around("execution(* my.whiteship..*.EventService.*(..))") // EventService말고 * 쓰면 해당 패키지의 전체 프록시 생성
     public Object logPerf(ProceedingJoinPoint pjp) throws Throwable {
        long begin = System.currentTimeMillis();
@@ -289,9 +289,9 @@ __스프링 EL이란?__
        System.out.println(System.currentTimeMillis() - begin);
        return retVal;
     }
-   ```
+```
    - __@annotation__  
-    ```java
+```java
     @Documented
     @Retention(RetentionPolicy.CLASS) // 이 어노테이션 정보를 얼마나 유지할것인가? CLASSFILE, COMPILE, RUNTIME -> CLASS가 기본 값
     @Target({ElementType.METHOD})
@@ -299,7 +299,6 @@ __스프링 EL이란?__
     }
     
     ....
-    
     @Around("@annotation(PerfLogging)") // Annotation 클래스명
     public Object logPerf(ProceedingJoinPoint pjp) throws Throwable {
        long begin = System.currentTimeMillis();
@@ -307,9 +306,9 @@ __스프링 EL이란?__
        System.out.println(System.currentTimeMillis() - begin);
        return retVal;
     }
-   ```
+```
    - __bean__  
-   ```java
+```java
     @Around("bean(simpleEventService)") // 빈 이름
     public Object logPerf(ProceedingJoinPoint pjp) throws Throwable {
        long begin = System.currentTimeMillis();
@@ -317,7 +316,7 @@ __스프링 EL이란?__
        System.out.println(System.currentTimeMillis() - begin);
        return retVal;
     }
-   ```
+```
 # Null-Safety
  - 스프링 프레임워크 5에 추가된 Null 관련 어노테이션
  - 컴파일 타임에 최대한 NullPointException을 방지하는 것
