@@ -32,7 +32,7 @@
 ## 서블릿 어플리케이션에 스프링 연동하기
 - 서블릿에서 스프링이 제공하는 IoC 컨테이너 활용하는 방법
   - ContextLoaderListener는 스프링 IoC 컨테이너, 스프링 어플리케이션 컨텍스트를 서블릿 어플리케이션 컨텍스트 생명주기에 맞춰서 바인딩 해주는 것
-- 스프링이 제공하는 서블릿 구현 DispatcherServlet 사용하기
+- 스프링이 제공하는 서블릿 구현체 DispatcherServlet 사용하기  
 
 ## DispatcherServlet
 - FrontController 패턴으로 구현되어있음
